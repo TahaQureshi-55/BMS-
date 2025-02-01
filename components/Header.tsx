@@ -7,8 +7,8 @@ export default function Header() {
   const { isLoggedIn, email, logout } = useAuth()
 
   return (
-    <header className="bg-secondary p-4 text-secondary-foreground">
-      <div className="container mx-auto flex justify-between items-center">
+    <header className="bg-secondary p-4 text-secondary-foreground w-full">
+      <div className="container mx-auto flex justify-between items-center px-4 md:px-0">
         <Link href="/" className="text-xl font-bold text-primary">
           BMS
         </Link>

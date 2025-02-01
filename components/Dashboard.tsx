@@ -70,14 +70,14 @@ export default function Dashboard() {
     <div className="p-6 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-primary">Welcome to BMS Dashboard, {email}!</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <DashboardCard title="Total Beneficiaries" value="1,250" icon={<Users size={24} />} />
         <DashboardCard title="New Registrations" value="50" icon={<UserPlus size={24} />} />
         <DashboardCard title="Pending Requests" value="28" icon={<Clock size={24} />} />
         <DashboardCard title="Total Aid Distributed" value="$125,000" icon={<DollarSign size={24} />} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         <div className="bg-secondary rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4 text-primary">Department Activity</h2>
           <ResponsiveContainer width="100%" height={300}>
@@ -116,7 +116,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="bg-secondary rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4 text-primary">Recent Activities</h2>
           <ul className="space-y-4">

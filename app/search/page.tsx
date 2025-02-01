@@ -1,7 +1,7 @@
 "use client"
 
 import ProtectedRoute from "../../components/ProtectedRoute"
-import { useState, type React } from "react"
+import React, { useState } from "react"
 import { Search, User, CreditCard, FileText } from "lucide-react"
 
 export default function SearchPage() {
@@ -14,7 +14,7 @@ export default function SearchPage() {
 
 function SearchComponent() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState<{ id: number; name: string; cnic: string; purpose: string }[]>([])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,49 +25,43 @@ function SearchComponent() {
   }
 
   return (
-    <div className="p-6 bg-background min-h-screen">
-      <h1 className="text-3xl font-bold text-primary mb-6">Search Beneficiaries</h1>
-      <div className="bg-secondary rounded-lg shadow p-6">
+    <div className="p-4 sm:p-6 bg-background min-h-screen">
+      <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-6 text-center sm:text-left">
+        Search Beneficiaries
+      </h1>
+
+      <div className="bg-secondary rounded-lg shadow p-4 sm:p-6">
         <form onSubmit={handleSearch} className="mb-6">
-          <div className="flex">
+          <div className="flex flex-col sm:flex-row">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by CNIC, Phone, or Name"
-              className="flex-grow rounded-l-md bg-accent text-accent-foreground border-accent focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+              className="w-full sm:flex-grow rounded-md sm:rounded-l-md bg-accent text-accent-foreground border-accent px-3 py-2 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
             />
             <button
               type="submit"
-              className="bg-primary text-primary-foreground px-4 py-2 rounded-r-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+              className="mt-2 sm:mt-0 w-full sm:w-auto bg-primary text-primary-foreground px-4 py-2 rounded-md sm:rounded-r-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 flex justify-center items-center"
             >
-              <Search className="inline-block mr-2" size={20} />
+              <Search className="mr-2" size={20} />
               Search
             </button>
           </div>
         </form>
+
         {searchResults.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4 text-primary">Search Results</h2>
+            <h2 className="text-xl font-semibold mb-4 text-primary text-center sm:text-left">
+              Search Results
+            </h2>
             <div className="space-y-4">
               {searchResults.map((result) => (
-                <div key={result.id} className="bg-accent rounded-lg p-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="flex items-center">
-                      <User className="mr-2 text-primary" size={20} />
-                      <span className="font-medium text-accent-foreground">Name:</span>
-                      <span className="ml-2 text-secondary-foreground">{result.name}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <CreditCard className="mr-2 text-primary" size={20} />
-                      <span className="font-medium text-accent-foreground">CNIC:</span>
-                      <span className="ml-2 text-secondary-foreground">{result.cnic}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FileText className="mr-2 text-primary" size={20} />
-                      <span className="font-medium text-accent-foreground">Purpose:</span>
-                      <span className="ml-2 text-secondary-foreground">{result.purpose}</span>
-                    </div>
+                <div key={result.id} className="bg-accent rounded-lg p-4 sm:p-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <InfoRow icon={User} label="Name" value={result.name} />
+                    <InfoRow icon={CreditCard} label="CNIC" value={result.cnic} />
+                    <InfoRow icon={FileText} label="Purpose" value={result.purpose} />
                   </div>
                 </div>
               ))}
@@ -79,3 +73,11 @@ function SearchComponent() {
   )
 }
 
+// Reusable Info Row Component
+const InfoRow = ({ icon: Icon, label, value }: { icon: any; label: string; value: string }) => (
+  <div className="flex items-center bg-secondary p-3 rounded-md shadow-sm">
+    <Icon className="mr-3 text-primary" size={20} />
+    <span className="font-medium text-accent-foreground">{label}:</span>
+    <span className="ml-2 text-secondary-foreground">{value}</span>
+  </div>
+)
